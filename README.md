@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CLERK
 
-## Getting Started
+The app uses `Clerk` for auth.
 
-First, run the development server:
+- Create account
+- Add `.env.local` file
+- Add the following variables to `.env.local`:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```Console
+CLERK_SECRET_KEY=<your-private-key>
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your-public-key>
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/journal
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/new-user
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## PlanetScale
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+I use `PlanetScale` MySQL cloud database.
 
-## Learn More
+- Create account
+- Install CLI
 
-To learn more about Next.js, take a look at the following resources:
+```Console
+brew install planetscale/tap/pscale
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- authenticate CLI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```Console
+pscale auth login
+```
 
-## Deploy on Vercel
+- switch to your organization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```Console
+pscale org switch <your-org-name>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- create development branch on your database
+
+```Console
+pscale branch create <your-database-name> <dev-branch-name>
+```
+
+- connect to the branch locally. I used default MySQL port (3309) but you can set any port.
+
+```Console
+pscale connect <your-database-name> <your-branch-name> --port 3309
+```
+
+## Prisma
+
+- Initiate Prisma
+
+```Console
+npx prisma init
+```
