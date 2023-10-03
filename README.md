@@ -43,13 +43,13 @@ pscale org switch <your-org-name>
 - create development branch on your database
 
 ```Console
-pscale branch create <your-database-name> <dev-branch-name>
+pscale branch create <YOUR_DATABASE_NAME> <DEV_BRANCH_NAME>
 ```
 
 - connect to the branch locally. I used default MySQL port (3309) but you can set any port.
 
 ```Console
-pscale connect <your-database-name> <your-branch-name> --port 3309
+pscale connect <YOUR_DATABASE_NAME> <YOUR_BRANCH_NAME> --port 3309
 ```
 
 ## Prisma
@@ -58,4 +58,16 @@ pscale connect <your-database-name> <your-branch-name> --port 3309
 
 ```Console
 npx prisma init
+```
+
+- In `.env` replace the `DATABASE_URL` with:
+
+```yaml
+DATABASE_URL = 'mysql://root@127.0.0.1:3309/<YOUR_DATABASE_NAME>'
+```
+
+- Push the db. No need to do migration with Prisma, PlanetScale does it's own migration's
+
+```Console
+npx prisma db push
 ```
