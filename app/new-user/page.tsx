@@ -1,4 +1,4 @@
-import { prisma } from "@/utils/db";
+import { prisma } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -6,7 +6,7 @@ const createNewUser = async () => {
   const user = await currentUser();
 
   if (!user) {
-    return user as never;
+    throw new Error("User is missing");
   }
 
   const match = await prisma.user.findUnique({
