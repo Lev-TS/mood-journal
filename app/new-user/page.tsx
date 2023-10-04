@@ -1,26 +1,22 @@
-import { prisma } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-const createNewUser = async () => {
-  const user = await currentUser();
+import { getUser } from "@/lib/query.utils";
+import { createUser } from "@/lib/mutation.utils";
 
-  if (!user) {
+const createNewUser = async () => {
+  const currentUserInClerk = await currentUser();
+
+  if (!currentUserInClerk) {
     throw new Error("User is missing");
   }
 
-  const match = await prisma.user.findUnique({
-    where: {
-      clerkId: user.id,
-    },
-  });
+  const user = await getUser(currentUserInClerk.id);
 
-  if (!match) {
-    await prisma.user.create({
-      data: {
-        clerkId: user.id,
-        email: user.emailAddresses[0].emailAddress,
-      },
+  if (user === null) {
+    await createUser({
+      clerkId: currentUserInClerk.id,
+      email: currentUserInClerk.emailAddresses[0].emailAddress,
     });
   }
 

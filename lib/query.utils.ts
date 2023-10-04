@@ -1,7 +1,7 @@
 import { prisma } from "./db.utils";
 
 export const getUser = async (clerkId: string) => {
-  return await prisma.user.findUniqueOrThrow({
+  return await prisma.user.findUnique({
     where: {
       clerkId,
     },
@@ -14,7 +14,7 @@ export const getEntries = async (
 ) => {
   return await prisma.journalEntry.findMany({
     where: {
-      userId: userId,
+      userId,
     },
     orderBy: {
       createdAt: order,

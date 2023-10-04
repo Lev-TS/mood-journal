@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 
-import { getEntries, getUser } from "@/lib/queries.utils";
+import { getEntries, getUser } from "@/lib/query.utils";
 import NewEntryCard from "@/components/NewEntryCard/component";
 import EntryCard from "@/components/EntryCard/component";
 
@@ -8,10 +8,15 @@ export default async function JournalPage() {
   const clerk = await auth();
 
   if (clerk.userId === null) {
-    throw new Error("User is missing");
+    throw new Error("Not authenticated");
   }
 
   const user = await getUser(clerk.userId);
+
+  if (user === null) {
+    throw new Error("Not found");
+  }
+
   const entries = await getEntries(user.id);
 
   return (
