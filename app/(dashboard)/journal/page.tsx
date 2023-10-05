@@ -1,4 +1,5 @@
 import { auth } from "@clerk/nextjs";
+import Link from "next/link";
 
 import { getEntries, getUser } from "@/lib/query.utils";
 import NewEntryCard from "@/components/NewEntryCard/component";
@@ -25,7 +26,9 @@ export default async function JournalPage() {
       <div className="grid grid-cols-3 gap-4">
         <NewEntryCard />
         {entries.map((entry) => (
-          <EntryCard key={entry.id} entry={entry} />
+          <Link key={entry.id} href={`/journal/${entry.id}`}>
+            <EntryCard entry={entry} />
+          </Link>
         ))}
       </div>
     </div>
