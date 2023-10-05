@@ -21,3 +21,14 @@ export const getEntries = async (
     },
   });
 };
+
+export const getEntry = async (entryId: string, userId: string) => {
+  return await prisma.journalEntry.findUnique({
+    where: {
+      userId_id: {
+        id: entryId,
+        userId,
+      },
+    },
+  });
+};

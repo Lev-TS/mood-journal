@@ -5,5 +5,5 @@ export interface CreateUserArgs {
 
 export interface CreateJournalEntryArgs {
   userId: string;
-  content: string;
+  content?: string;
 }

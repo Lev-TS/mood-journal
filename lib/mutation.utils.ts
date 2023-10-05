@@ -12,7 +12,7 @@ export const createUser = async ({ clerkId, email }: CreateUserArgs) => {
 
 export const createJournalEntry = async ({
   userId,
-  content,
+  content = "",
 }: CreateJournalEntryArgs) => {
   return await prisma.journalEntry.create({
     data: {
