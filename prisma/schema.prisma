@@ -22,7 +22,7 @@ model JournalEntry {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   content   String    @db.Text
   analysis  Analysis?
 
@@ -34,11 +34,12 @@ model Analysis {
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
   entryId   String
-  entry     JournalEntry @relation(fields: [entryId], references: [id])
+  entry     JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
   mood      String
   summary   String       @db.Text
   color     String
   negative  Boolean
+  subject   String
 
   @@unique([entryId])
 }

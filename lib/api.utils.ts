@@ -1,4 +1,4 @@
-import { JournalEntry } from "@prisma/client";
+import { Analysis, JournalEntry } from "@prisma/client";
 
 const createUrl = (path: string) => {
   return window.location.origin + path;
@@ -22,7 +22,7 @@ export const createNewEntry = async (): Promise<{ data: JournalEntry }> => {
 export const updateEntry = async (
   id: string,
   content: string
-): Promise<{ data: JournalEntry }> => {
+): Promise<{ data: JournalEntry & { analysis: Analysis } }> => {
   const res = await fetch(
     new Request(createUrl(`/api/journal/${id}`), {
       method: "PATCH",

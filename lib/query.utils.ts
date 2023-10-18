@@ -30,5 +30,8 @@ export const getEntry = async (entryId: string, userId: string) => {
         userId,
       },
     },
+    include: {
+      analysis: true,
+    },
   });
 };

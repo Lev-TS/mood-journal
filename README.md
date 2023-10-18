@@ -71,3 +71,8 @@ DATABASE_URL = 'mysql://root@127.0.0.1:3309/<YOUR_DATABASE_NAME>'
 ```Console
 npx prisma db push
 ```
+
+## OPEN AI
+
+- create OpenAI account
+- create secret key for the app and add it to `.env.local` under the name of `OPENAI_API_KEY`

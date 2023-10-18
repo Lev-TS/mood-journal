@@ -4,6 +4,8 @@ import { currentUser } from "@clerk/nextjs";
 import { getUser } from "@/lib/query.utils";
 import { createJournalEntry } from "@/lib/mutation.utils";
 import { revalidatePath } from "next/cache";
+import { analyze } from "@/lib/ai.utils";
+import { prisma } from "@/lib/db.utils";
 
 export const POST = async () => {
   const currentUserInClerk = await currentUser();

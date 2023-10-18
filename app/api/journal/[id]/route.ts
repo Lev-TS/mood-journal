@@ -3,6 +3,8 @@ import { currentUser } from "@clerk/nextjs";
 import { getUser } from "@/lib/query.utils";
 import { prisma } from "@/lib/db.utils";
 import { NextResponse } from "next/server";
+import { analyze } from "@/lib/ai.utils";
+import { revalidatePath } from "next/cache";
 
 export const PATCH = async (
   request: Request,
@@ -23,9 +25,17 @@ export const PATCH = async (
   }
 
   const { content } = await request.json();
+  const analysis = await analyze(content);
+
   const updatedEntry = await prisma.journalEntry.update({
     data: {
       content,
+      analysis: {
+        upsert: {
+          create: analysis,
+          update: analysis,
+        },
+      },
     },
     where: {
       userId_id: {
@@ -33,7 +43,12 @@ export const PATCH = async (
         id: params.id,
       },
     },
+    include: {
+      analysis: true,
+    },
   });
+
+  revalidatePath(`/journal/${updatedEntry.id}`);
 
   return NextResponse.json({ data: updatedEntry });
 };
