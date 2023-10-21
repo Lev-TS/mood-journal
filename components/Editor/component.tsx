@@ -8,9 +8,9 @@ import { updateEntry } from "@/lib/api.utils";
 import Spinner from "../Spinner/component";
 
 const Editor: React.FC<EditorProps> = ({ entry }) => {
-  const [value, setValue] = useState(entry?.content);
+  const [value, setValue] = useState(entry.content);
   const [isLoading, setIsLoading] = useState(false);
-  const [analysis, setAnalysis] = useState(entry.analysis);
+  const [analysis, setAnalysis] = useState(entry?.analysis);
 
   const analysisData = [
     { name: "Summary", value: analysis?.summary },
@@ -22,10 +22,12 @@ const Editor: React.FC<EditorProps> = ({ entry }) => {
   useAutosave({
     data: value,
     onSave: async (currentValue) => {
-      setIsLoading(true);
-      const { data } = await updateEntry(entry.id, currentValue);
-      setAnalysis(data.analysis);
-      setIsLoading(false);
+      if (value != entry.content) {
+        setIsLoading(true);
+        const { data } = await updateEntry(entry.id, currentValue);
+        setAnalysis(data.analysis);
+        setIsLoading(false);
+      }
     },
   });
 
@@ -46,7 +48,7 @@ const Editor: React.FC<EditorProps> = ({ entry }) => {
       <div className="border-l border-black/10">
         <div
           className="px-6 py-10"
-          style={{ backgroundColor: entry.analysis?.color }}
+          style={{ backgroundColor: analysis?.color }}
         >
           <h2 className="text-xl">Analysis</h2>
         </div>
