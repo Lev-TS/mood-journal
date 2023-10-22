@@ -1,6 +1,8 @@
 # About
 
-This is a simple mood journal. Entries to the journal are analyzed with OpenAI, which determines the user's mood and assigns sentiment score. The app is very simple it's full of bugs but the goal was to understand auth with Clerk and OpenAI api prompts.
+This is a simple mood journal. Entries to the journal are analyzed with OpenAI, which determines the user's mood and assigns sentiment score. The app is very simple, it's full of bugs on not styled. The goal was to understand auth with Clerk and OpenAI api prompts. It's deployed at:
+
+[https://mood-journal-alpha.vercel.app/](https://mood-journal-alpha.vercel.app/)
 
 # CLERK
 
