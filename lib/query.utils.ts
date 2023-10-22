@@ -16,6 +16,9 @@ export const getEntries = async (
     where: {
       userId,
     },
+    include: {
+      analysis: true,
+    },
     orderBy: {
       createdAt: order,
     },
@@ -34,4 +37,21 @@ export const getEntry = async (entryId: string, userId: string) => {
       analysis: true,
     },
   });
+};
+
+export const getAnalyses = async (userId: string) => {
+  const analyses = await prisma.analysis.findMany({
+    where: { userId },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const sum = analyses.reduce(
+    (total, current) => total + current.sentimentScore,
+    0
+  );
+  const average = Math.round(sum / analyses.length);
+
+  return { analyses, average };
 };

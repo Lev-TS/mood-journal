@@ -32,8 +32,8 @@ export const PATCH = async (
       content,
       analysis: {
         upsert: {
-          create: analysis,
-          update: analysis,
+          create: { ...analysis, userId: user.id },
+          update: { ...analysis, userId: user.id },
         },
       },
     },

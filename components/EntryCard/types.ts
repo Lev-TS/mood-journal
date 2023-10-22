@@ -1,5 +1,5 @@
-import { type JournalEntry } from "@prisma/client";
+import { Analysis, type JournalEntry } from "@prisma/client";
 
 export interface EntryCardProps {
-  entry: JournalEntry;
+  entry: JournalEntry & { analysis: Analysis };
 }
