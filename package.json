@@ -9,7 +9,8 @@
     "lint": "next lint",
     "db:dev": "pscale connect mood-journal dev --port 3309",
     "db:push": "npx prisma db push",
-    "schema:format": "npx prisma format"
+    "schema:format": "npx prisma format",
+    "test": "vitest"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.1",
@@ -32,6 +33,11 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "prisma": "^5.3.1"
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@vitejs/plugin-react-swc": "^3.4.0",
+    "jsdom": "^22.1.0",
+    "prisma": "^5.3.1",
+    "vitest": "^0.34.6"
   }
 }
